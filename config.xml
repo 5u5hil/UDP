@@ -6,12 +6,12 @@
 
     <!-- versionCode is optional and Android only -->
 
-    <name>Mobitrash</name>
+    <name>UDP Tool</name>
 
     <description>
         UDP
     </description>
-
+<preference name="phonegap-version" value="cli-6.0.0" />
     <platform name="android" />
 <platform name="ios" />
 
