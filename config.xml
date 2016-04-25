@@ -11,7 +11,7 @@
     <description>
         UDP
     </description>
-<preference name="phonegap-version" value="cli-6.0.0" />
+<preference name="phonegap-version" value="cli-6.1.0" />
     <platform name="android" />
 <platform name="ios" />
 
