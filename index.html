@@ -36,6 +36,7 @@
             <li><strong>Received Messages</strong></li>
         </ul>
 
+        <p>SSID : <strong id="ssid"></strong></p>
 
 
         <script type="text/javascript" src="jquery.min.js"></script>
@@ -59,6 +60,11 @@
                     $("#myip").text(ip);
                 });
 
+                WifiWizard.getCurrentSSID(function (ip) {
+                    $("#ssid").text(ip);
+                }, function () {
+                    alert("error");
+                });
 
 
                 $("#send").click(function () {
