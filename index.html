@@ -59,12 +59,18 @@
                 networkinterface.getIPAddress(function (ip) {
                     $("#myip").text(ip);
                 });
+                try {
+                    WifiWizard.getCurrentSSID(function (ip) {
+                        $("#ssid").text(ip);
+                    }, function () {
+                        alert("error");
+                    });
+                } catch (err) {
 
-                WifiWizard.getCurrentSSID(function (ip) {
-                    $("#ssid").text(ip);
-                }, function () {
-                    alert("error");
-                });
+                    alert(err.message);
+
+                }
+
 
 
                 $("#send").click(function () {
@@ -72,30 +78,34 @@
                     var port = $("#port").val();
                     var data = str2ab($("#msg").val());
 
-                    alert(data);
+                    try {
 
-                    chrome.sockets.udp.create({}, function (socketInfo) {
-                        toast(socketInfo);
-                        var socketId = socketInfo.socketId;
+                        chrome.sockets.udp.create({}, function (socketInfo) {
+                            toast(socketInfo);
+                            var socketId = socketInfo.socketId;
 
-                        chrome.sockets.udp.getInfo(socketId, function (result) {
-                            toast(result);
-                        });
-
-                        if (result < 0) {
-                            toast(chrome.runtime.lastError.message);
-                        } else {
-                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
-                                if (sendInfo.resultCode < 0) {
-                                    toast(chrome.runtime.lastError.message);
-                                } else {
-                                    toast(sendInfo);
-                                }
+                            chrome.sockets.udp.getInfo(socketId, function (result) {
+                                toast(result);
                             });
-                        }
 
-                    });
+                            if (result < 0) {
+                                toast(chrome.runtime.lastError.message);
+                            } else {
+                                chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                                    if (sendInfo.resultCode < 0) {
+                                        toast(chrome.runtime.lastError.message);
+                                    } else {
+                                        toast(sendInfo);
+                                    }
+                                });
+                            }
 
+                        });
+                    } catch (err) {
+
+                        alert(err.message);
+
+                    }
                 });
 
             }, false);
