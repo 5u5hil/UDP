@@ -91,11 +91,8 @@
                 // The scope of 'this' is the event. In order to call the 'receivedEvent'
                 // function, we must explicitly call 'app.receivedEvent(...);'
                 onDeviceReady: function () {
-                    app.receivedEvent('deviceready');
-                },
-                // Update DOM on a Received Event
-                receivedEvent: function (id) {
-                    networkinterface.getIPAddress(function (ip) {
+
+                    window.networkinterface.getIPAddress(function (ip) {
 
                         alert("ip");
                         $("#myip").text(ip);
@@ -103,14 +100,14 @@
 
 
                     $("#connect").click(function () {
+                        alert( $("#ip").val());
                         window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
                     });
 
                     $("#send").click(function () {
                         window.tlantic.plugins.socket.send(stub, stub, key, $("#msg").val());
                     });
-
-                }
+                },
             };
 
             app.initialize();
