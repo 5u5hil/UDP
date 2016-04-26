@@ -84,26 +84,24 @@
                             toast(socketInfo);
                             var socketId = socketInfo.socketId;
 
-                            chrome.sockets.udp.getInfo(socketId, function (result) {
-                                toast(result);
+                            chrome.socket.udp.bind(socketId, '127.0.0.1', 1345, function (result) {
+                                alert('chrome.socket.bind: result = ' + result.toString());
                             });
 
-                            if (result < 0) {
-                                toast(chrome.runtime.lastError.message);
-                            } else {
-                                chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
-                                    if (sendInfo.resultCode < 0) {
-                                        toast(chrome.runtime.lastError.message);
-                                    } else {
-                                        toast(sendInfo);
-                                    }
-                                });
-                            }
+
+                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                                if (sendInfo.resultCode < 0) {
+                                    toast(chrome.runtime.lastError.message);
+                                } else {
+                                    toast(sendInfo);
+                                }
+                            });
+
 
                         });
                     } catch (err) {
 
-                        alert(err.message);
+                        alert("Error-  " + err.message);
 
                     }
                 });
