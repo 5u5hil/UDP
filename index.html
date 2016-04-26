@@ -54,10 +54,10 @@
             document.addEventListener('deviceready', function () {
 
 
-var ip;
+
 
                 networkinterface.getIPAddress(function (ip) {
-                    ip = ip;
+                  
                     $("#myip").text(ip);
                 });
                 try {
@@ -79,13 +79,14 @@ var ip;
                     var port = $("#port").val();
                     var data = str2ab($("#msg").val());
                     var rport = $("#rport").val();
+                    var ip = $("#myip").text();
 
                     try {
 
                         chrome.sockets.udp.create({}, function (socketInfo) {
                             toast(socketInfo);
                             var socketId = socketInfo.socketId;
-alert(ip); alert(rport);
+
                             chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
                                 alert('chrome.socket.bind: result = ' + result.toString());
                             });
