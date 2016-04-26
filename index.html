@@ -38,7 +38,7 @@
             </fieldset>
         </form>
 
-        <p>To Subscribe use this IP : <strong id="myip"></strong></p>
+        <p>To Subscribe use this IP : <strong id="myip"></strong> <input type="number" name="rport" value="1823" /></p>
 
         <ul id="log">
             <li><strong>Received Messages</strong></li>
@@ -56,7 +56,6 @@
         <script type="text/javascript">
 
 
-            var key = "";
 
 
             document.addEventListener('deviceready', function () {
@@ -68,32 +67,18 @@
 
 
                 $("#connect").click(function () {
-                    window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
+                    //           window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
                 });
 
                 $("#send").click(function () {
-                    window.tlantic.plugins.socket.send(stub, stub, key, $("#msg").val());
+                    //  window.tlantic.plugins.socket.send(stub, stub, key, $("#msg").val());
                 });
 
             }, false);
 
 
 
-            function stub(d) {
-                alert(JSON.stringify(d));
-            }
 
-            function onConnect(k) {
-                alert('Established connection with ', k);
-                key = k;
-            }
-
-
-            document.addEventListener('SOCKET_RECEIVE_DATA_HOOK', function (ev) {
-                alert(JSON.stringify(ev));
-                document.getElementById("log").append("<li>" + ev.metadata.data + "</li>");
-
-            });
 
 
 
