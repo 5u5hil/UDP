@@ -11,12 +11,12 @@
             <fieldset>
                 <div class="pure-control-group">
                     <label for="name">IP</label>
-                    <input id="ip" name="ip" type="text" value="192.168.1." placeholder="IP">
+                    <input id="ip" name="ip" type="text" value="192.168.0.101" placeholder="IP">
                 </div>
 
                 <div class="pure-control-group">
                     <label for="name">Port</label>
-                    <input id="port" name="port" type="number" value="7000" placeholder="Port">
+                    <input id="port" name="port" type="number" value="55056" placeholder="Port">
                 </div>
 
                 <div class="pure-control-group">
@@ -70,6 +70,7 @@
 
 
                     chrome.sockets.udp.create({}, function (socketInfo) {
+                        alert(JSON.stringify(socketInfo));
                         var socketId = socketInfo.socketId;
                         chrome.sockets.udp.bind(socketId, "0.0.0.0", 0, function (result) {
 
