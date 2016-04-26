@@ -30,7 +30,7 @@
             </fieldset>
         </form>
 
-        <p>To Subscribe use this IP : <strong id="myip"></strong> <input type="number" name="rport" value="1823" /></p>
+        <p>To Subscribe use this IP : <strong id="myip"></strong> <input type="number" id="rport" name="rport" value="1823" /></p>
 
         <ul id="log">
             <li><strong>Received Messages</strong></li>
@@ -54,9 +54,10 @@
             document.addEventListener('deviceready', function () {
 
 
-
+var ip;
 
                 networkinterface.getIPAddress(function (ip) {
+                    ip = ip;
                     $("#myip").text(ip);
                 });
                 try {
@@ -77,6 +78,7 @@
                     var address = $("#ip").val();
                     var port = $("#port").val();
                     var data = str2ab($("#msg").val());
+                    var rport = $("#rport").val();
 
                     try {
 
@@ -84,7 +86,7 @@
                             toast(socketInfo);
                             var socketId = socketInfo.socketId;
 
-                            chrome.sockets.udp.bind(socketId, "0.0.0.0", 0, function (result) {
+                            chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
                                 alert('chrome.socket.bind: result = ' + result.toString());
                             });
 
