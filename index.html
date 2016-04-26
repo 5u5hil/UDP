@@ -68,20 +68,20 @@
 
                     alert(data);
 
-                    chrome.sockets.udp.create({}, function (socketInfo) {
+                    window.chrome.sockets.udp.create({}, function (socketInfo) {
                         alert(JSON.stringify(socketInfo));
                         var socketId = socketInfo.socketId;
 
-                        chrome.sockets.udp.getInfo(socketId, function (result) {
+                        window.chrome.sockets.udp.getInfo(socketId, function (result) {
                             toast(result);
                         });
 
                         if (result < 0) {
-                            toast(chrome.runtime.lastError.message);
+                            toast(window.chrome.runtime.lastError.message);
                         } else {
-                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                            window.chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
                                 if (sendInfo.resultCode < 0) {
-                                    toast(chrome.runtime.lastError.message);
+                                    toast(window.chrome.runtime.lastError.message);
                                 } else {
                                     toast(sendInfo);
                                 }
