@@ -47,7 +47,7 @@
 
 
         <script type="text/javascript" src="jquery.min.js"></script>
-        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
 
 
 
@@ -57,6 +57,29 @@
 
 
             var key = "";
+
+
+            document.addEventListener('deviceready', function () {
+                alert("ready");
+
+                networkinterface.getIPAddress(function (ip) {
+
+                    alert("ip");
+                    $("#myip").text(ip);
+                });
+
+
+                $("#connect").click(function () {
+                    alert($("#ip").val());
+                    window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
+                });
+
+                $("#send").click(function () {
+                    window.tlantic.plugins.socket.send(stub, stub, key, $("#msg").val());
+                });
+
+            }, false);
+
 
 
             function stub(d) {
@@ -74,43 +97,7 @@
 
             });
 
-            var app = {
-                // Application Constructor
-                initialize: function () {
-                    this.bindEvents();
-                },
-                // Bind Event Listeners
-                //
-                // Bind any events that are required on startup. Common events are:
-                // 'load', 'deviceready', 'offline', and 'online'.
-                bindEvents: function () {
-                    document.addEventListener('deviceready', this.onDeviceReady, false);
-                },
-                // deviceready Event Handler
-                //
-                // The scope of 'this' is the event. In order to call the 'receivedEvent'
-                // function, we must explicitly call 'app.receivedEvent(...);'
-                onDeviceReady: function () {
 
-                    window.networkinterface.getIPAddress(function (ip) {
-
-                        alert("ip");
-                        $("#myip").text(ip);
-                    });
-
-
-                    $("#connect").click(function () {
-                        alert( $("#ip").val());
-                        window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
-                    });
-
-                    $("#send").click(function () {
-                        window.tlantic.plugins.socket.send(stub, stub, key, $("#msg").val());
-                    });
-                },
-            };
-
-            app.initialize();
 
 
 

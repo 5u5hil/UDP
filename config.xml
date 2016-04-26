@@ -15,7 +15,7 @@
     <platform name="ios" />
 
     <preference name="orientation" value="portrait" />
-    <preference name="fullscreen" value="true" />
+    <preference name="fullscreen" value="false" />
     
     <gap:plugin name="cordova-plugin-networkinterface" source="npm" />
     <plugin name="com.tlantic.plugins.socket" spec="0.3.2" source="pgb" />
