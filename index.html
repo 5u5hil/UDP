@@ -85,7 +85,7 @@ var ip;
                         chrome.sockets.udp.create({}, function (socketInfo) {
                             toast(socketInfo);
                             var socketId = socketInfo.socketId;
-
+alert(ip); alert(rport);
                             chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
                                 alert('chrome.socket.bind: result = ' + result.toString());
                             });
