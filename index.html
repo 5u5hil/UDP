@@ -88,13 +88,15 @@
                             var socketId = socketInfo.socketId;
 
                             chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                                
+                                toast(sendInfo);
                                 if (sendInfo.resultCode < 0) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
                                     toast(sendInfo);
                                 }
                             });
-alert(ip);
+                      
                             chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
                                 alert('chrome.socket.bind: result = ' + result.toString());
                             });
@@ -116,13 +118,16 @@ alert(ip);
 
 
 
-            function str2ab(str) {
-                var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
-                var bufView = new Uint16Array(buf);
-                for (var i = 0, strLen = str.length; i < strLen; i++) {
-                    bufView[i] = str.charCodeAt(i);
-                }
-                return buf;
+            function str2ab(s) {
+                var escstr = encodeURIComponent(s);
+                var binstr = escstr.replace(/%([0-9A-F]{2})/g, function (match, p1) {
+                    return String.fromCharCode('0x' + p1);
+                });
+                var ua = new Uint8Array(binstr.length);
+                Array.prototype.forEach.call(binstr, function (ch, i) {
+                    ua[i] = ch.charCodeAt(0);
+                });
+                return ua;
             }
 
             function toast(m) {
