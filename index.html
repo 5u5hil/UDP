@@ -67,9 +67,9 @@
                     var port = $("#port").val();
                     var data = str2ab($("#msg").val());
 
+alert(data);
 
-
-                    chrome.socket.udp.create({}, function (socketInfo) {
+                    chrome.sockets.udp.create({}, function (socketInfo) {
                         alert(JSON.stringify(socketInfo));
                         var socketId = socketInfo.socketId;
 
