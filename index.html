@@ -60,17 +60,14 @@
 
 
             document.addEventListener('deviceready', function () {
-                alert(window.tlantic.plugins.socket.receiveHookName);
 
                 networkinterface.getIPAddress(function (ip) {
 
-                    alert("ip");
                     $("#myip").text(ip);
                 });
 
 
                 $("#connect").click(function () {
-                    alert($("#ip").val());
                     window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
                 });
 
@@ -92,8 +89,9 @@
             }
 
 
-            document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
-                $("#log").append("<li>" + ev.metadata.data + "</li>");
+            document.addEventListener('SOCKET_RECEIVE_DATA_HOOK', function (ev) {
+                alert(JSON.stringify(ev));
+                document.getElementById("log").append("<li>" + ev.metadata.data + "</li>");
 
             });
 
