@@ -69,7 +69,7 @@
                     alert(data);
 
                     window.chrome.sockets.udp.create({}, function (socketInfo) {
-                        alert(JSON.stringify(socketInfo));
+                        toast(socketInfo);
                         var socketId = socketInfo.socketId;
 
                         window.chrome.sockets.udp.getInfo(socketId, function (result) {
