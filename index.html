@@ -3,45 +3,7 @@
     <head>
         <title>UDP</title>
         <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="pure-min.css" rel="stylesheet" type="text/css"/>
-        <script src="jquery.min.js"></script>
-        <script src="phonegap.js"></script>
-        <script>
-            var key = "";
-
-            $(document).ready(function () {
-
-                networkinterface.getIPAddress(function (ip) {
-                    $("#myip").text(ip);
-                });
-
-                $("#connect").click(function () {
-                    window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
-                });
-
-                $("#send").click(function () {
-                    window.tlantic.plugins.socket.send(stub, stub, key, $("#msg").val());
-                });
-            });
-
-
-
-            function stub(d) {
-                alert(JSON.stringify(d));
-            }
-
-            function onConnect(k) {
-                alert('Established connection with ', k);
-                key = k;
-            }
-
-
-            document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
-                $("#log").append("<li>" + ev.metadata.data + "</li>");
-
-            });
-        </script>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1,width=device-width, height=device-height, target-densitydpi=device-dpi" />
     </head>
     <body>
 
@@ -81,5 +43,80 @@
         <ul id="log">
             <li><strong>Received Messages</strong></li>
         </ul>
+
+
+
+        <script type="text/javascript" src="jquery.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+
+
+
+
+
+        <script type="text/javascript">
+
+
+            var key = "";
+
+
+            function stub(d) {
+                alert(JSON.stringify(d));
+            }
+
+            function onConnect(k) {
+                alert('Established connection with ', k);
+                key = k;
+            }
+
+
+            document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+                $("#log").append("<li>" + ev.metadata.data + "</li>");
+
+            });
+
+            var app = {
+                // Application Constructor
+                initialize: function () {
+                    this.bindEvents();
+                },
+                // Bind Event Listeners
+                //
+                // Bind any events that are required on startup. Common events are:
+                // 'load', 'deviceready', 'offline', and 'online'.
+                bindEvents: function () {
+                    document.addEventListener('deviceready', this.onDeviceReady, false);
+                },
+                // deviceready Event Handler
+                //
+                // The scope of 'this' is the event. In order to call the 'receivedEvent'
+                // function, we must explicitly call 'app.receivedEvent(...);'
+                onDeviceReady: function () {
+                    app.receivedEvent('deviceready');
+                },
+                // Update DOM on a Received Event
+                receivedEvent: function (id) {
+                    networkinterface.getIPAddress(function (ip) {
+
+                        alert("ip");
+                        $("#myip").text(ip);
+                    });
+
+
+                    $("#connect").click(function () {
+                        window.tlantic.plugins.socket.connect(onConnect, stub, $("#ip").val(), $("#port").val());
+                    });
+
+                    $("#send").click(function () {
+                        window.tlantic.plugins.socket.send(stub, stub, key, $("#msg").val());
+                    });
+
+                }
+            };
+
+            app.initialize();
+
+
+
+        </script>
     </body>
 </html>
