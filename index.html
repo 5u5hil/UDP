@@ -84,7 +84,7 @@
                             toast(socketInfo);
                             var socketId = socketInfo.socketId;
 
-                            chrome.socket.udp.bind(socketId, '127.0.0.1', 1345, function (result) {
+                            chrome.sockets.udp.bind(socketId, '127.0.0.1', 1345, function (result) {
                                 alert('chrome.socket.bind: result = ' + result.toString());
                             });
 
