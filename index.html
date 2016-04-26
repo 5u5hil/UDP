@@ -69,18 +69,18 @@
 
 
 
-                    chrome.sockets.udp.create({}, function (socketInfo) {
+                    chrome.socket.udp.create({}, function (socketInfo) {
                         alert(JSON.stringify(socketInfo));
                         var socketId = socketInfo.socketId;
 
-                        chrome.sockets.udp.getInfo(socketId, function (result) {
+                        chrome.socket.udp.getInfo(socketId, function (result) {
                             toast(result);
                         });
 
                         if (result < 0) {
                             toast(chrome.runtime.lastError.message);
                         } else {
-                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                            chrome.socket.udp.send(socketId, data, address, port, function (sendInfo) {
                                 if (sendInfo.resultCode < 0) {
                                     toast(chrome.runtime.lastError.message);
                                 } else {
