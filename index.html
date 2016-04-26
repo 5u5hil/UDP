@@ -57,7 +57,7 @@
 
 
                 networkinterface.getIPAddress(function (ip) {
-                  
+
                     $("#myip").text(ip);
                 });
                 try {
@@ -87,11 +87,6 @@
                             toast(socketInfo);
                             var socketId = socketInfo.socketId;
 
-                            chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
-                                alert('chrome.socket.bind: result = ' + result.toString());
-                            });
-
-
                             chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
                                 if (sendInfo.resultCode < 0) {
                                     toast(chrome.runtime.lastError.message);
@@ -99,6 +94,13 @@
                                     toast(sendInfo);
                                 }
                             });
+alert(ip);
+                            chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
+                                alert('chrome.socket.bind: result = ' + result.toString());
+                            });
+
+
+
 
 
                         });
