@@ -60,7 +60,7 @@
 
 
             document.addEventListener('deviceready', function () {
-                alert("ready");
+                alert(window.tlantic.plugins.socket.receiveHookName);
 
                 networkinterface.getIPAddress(function (ip) {
 
