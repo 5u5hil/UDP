@@ -86,7 +86,7 @@
                     chrome.sockets.udp.create({}, function (socketInfo) {
                         var socketId = socketInfo.socketId;
                         try {
-                            chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
+                            chrome.sockets.udp.bind(socketId, '0.0.0.0', 0, function (result) {
                                 alert('chrome.socket.bind: result = ' + result.toString());
                             });
                         } catch (err) {
@@ -96,7 +96,9 @@
                         }
 
                         try {
-                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                            
+                            var arrayBuffer=new ArrayBuffer(2); arrayBuffer[0]=65; arrayBuffer[1]=66; 
+                            chrome.sockets.udp.send(socketId, arrayBuffer, address, port, function (sendInfo) {
                                 alert(sendInfo);
                                 if (sendInfo.resultCode < 0) {
                                     alert(JSON.stringify(chrome.runtime.lastError.message));
