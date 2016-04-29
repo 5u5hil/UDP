@@ -94,9 +94,9 @@
                             alert("Error-  " + err.message);
 
                         }
-                        
+
                         try {
-                            chrome.sockets.udp.send(socketId, [72, 69, 76, 76, 79], address, port, function (sendInfo) {
+                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
                                 if (sendInfo.resultCode < 0) {
                                     alert(JSON.stringify(chrome.runtime.lastError.message));
                                 } else {
@@ -123,16 +123,13 @@
 
 
 
-            function str2ab(s) {
-                var escstr = encodeURIComponent(s);
-                var binstr = escstr.replace(/%([0-9A-F]{2})/g, function (match, p1) {
-                    return String.fromCharCode('0x' + p1);
-                });
-                var ua = new Uint8Array(binstr.length);
-                Array.prototype.forEach.call(binstr, function (ch, i) {
-                    ua[i] = ch.charCodeAt(0);
-                });
-                return ua;
+            function str2ab(str) {
+                var buf = new ArrayBuffer(str.length * 2); // 2 bytes for each char
+                var bufView = new Uint16Array(buf);
+                for (var i = 0, strLen = str.length; i < strLen; i++) {
+                    bufView[i] = str.charCodeAt(i);
+                }
+                return buf;
             }
 
             function toast(m) {
