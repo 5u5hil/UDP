@@ -96,7 +96,7 @@
                         }
                         
                         try {
-                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                            chrome.sockets.udp.send(socketId, [72, 69, 76, 76, 79], address, port, function (sendInfo) {
                                 if (sendInfo.resultCode < 0) {
                                     alert(JSON.stringify(chrome.runtime.lastError.message));
                                 } else {
