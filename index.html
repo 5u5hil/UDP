@@ -11,7 +11,7 @@
             <fieldset>
                 <div class="pure-control-group">
                     <label for="name">IP</label>
-                    <input id="ip" name="ip" type="text" value="192.168.0.101" placeholder="IP">
+                    <input id="ip" name="ip" type="text" value="192.168.0.108" placeholder="IP">
                 </div>
 
                 <div class="pure-control-group">
@@ -94,6 +94,7 @@
                             alert("Error-  " + err.message);
 
                         }
+                        
                         try {
                             chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
                                 if (sendInfo.resultCode < 0) {
