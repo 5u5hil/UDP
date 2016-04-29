@@ -96,8 +96,10 @@
                         }
 
                         try {
-                            
-                            var arrayBuffer=new ArrayBuffer(2); arrayBuffer[0]=65; arrayBuffer[1]=66; 
+
+                            var arrayBuffer = new ArrayBuffer(2);
+                            arrayBuffer[0] = 68;
+                            arrayBuffer[1] = 69;
                             chrome.sockets.udp.send(socketId, arrayBuffer, address, port, function (sendInfo) {
                                 alert(sendInfo);
                                 if (sendInfo.resultCode < 0) {
