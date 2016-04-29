@@ -123,6 +123,12 @@
 
                 });
 
+
+                chrome.sockets.udp.onReceive.addListener(function (a) {
+                    alert(JSON.stringify(a));
+                });
+
+
             }, false);
 
 
