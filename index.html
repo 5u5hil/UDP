@@ -81,36 +81,40 @@
                     var rport = $("#rport").val();
                     var ip = $("#myip").text();
 
-                    try {
 
-                        chrome.sockets.udp.create({}, function (socketInfo) {
-                            toast(socketInfo);
-                            var socketId = socketInfo.socketId;
 
-                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
-                                
-                                toast(sendInfo);
-                                if (sendInfo.resultCode < 0) {
-                                    toast(chrome.runtime.lastError.message);
-                                } else {
-                                    toast(sendInfo);
-                                }
-                            });
-                      
+                    chrome.sockets.udp.create({}, function (socketInfo) {
+                        var socketId = socketInfo.socketId;
+                        try {
                             chrome.sockets.udp.bind(socketId, ip, rport, function (result) {
                                 alert('chrome.socket.bind: result = ' + result.toString());
                             });
+                        } catch (err) {
+
+                            alert("Error-  " + err.message);
+
+                        }
+                        try {
+                            chrome.sockets.udp.send(socketId, data, address, port, function (sendInfo) {
+                                if (sendInfo.resultCode < 0) {
+                                    alert(JSON.stringify(chrome.runtime.lastError.message));
+                                } else {
+                                    alert(JSON.stringify(sendInfo));
+                                }
+                            });
+                        } catch (err) {
+
+                            alert("Error-  " + err.message);
+
+                        }
 
 
 
 
 
-                        });
-                    } catch (err) {
 
-                        alert("Error-  " + err.message);
+                    });
 
-                    }
                 });
 
             }, false);
